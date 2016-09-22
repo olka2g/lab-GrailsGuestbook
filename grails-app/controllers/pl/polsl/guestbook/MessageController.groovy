@@ -10,7 +10,10 @@ class MessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def scaffold = Message
+    def index() {
+        def messages = Message.list()
+        [allMessages:messages]
+    }
 
     def show(Message messageInstance) {
         respond messageInstance
