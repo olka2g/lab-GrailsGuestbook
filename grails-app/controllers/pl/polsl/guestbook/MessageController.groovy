@@ -24,18 +24,19 @@ class MessageController {
     }
 
     @Transactional
-    def save(Message messageInstance) {
-        if (messageInstance == null) {
-            notFound()
-            return
-        }
-
+    def save() {        
+        
+        def user = new User(email: params.email, nick: params.nick)
+        user.save()
+        
+        def messageInstance = new Message(content: params.content, author: user)
+        
         if (messageInstance.hasErrors()) {
             respond messageInstance.errors, view:'create'
             return
         }
 
-        messageInstance.save flush:true
+        messageInstance.save()
 
         request.withFormat {
             form multipartForm {
@@ -43,52 +44,6 @@ class MessageController {
                 redirect messageInstance
             }
             '*' { respond messageInstance, [status: CREATED] }
-        }
-    }
-
-    def edit(Message messageInstance) {
-        respond messageInstance
-    }
-
-    @Transactional
-    def update(Message messageInstance) {
-        if (messageInstance == null) {
-            notFound()
-            return
-        }
-
-        if (messageInstance.hasErrors()) {
-            respond messageInstance.errors, view:'edit'
-            return
-        }
-
-        messageInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Message.label', default: 'Message'), messageInstance.id])
-                redirect messageInstance
-            }
-            '*'{ respond messageInstance, [status: OK] }
-        }
-    }
-
-    @Transactional
-    def delete(Message messageInstance) {
-
-        if (messageInstance == null) {
-            notFound()
-            return
-        }
-
-        messageInstance.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Message.label', default: 'Message'), messageInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
         }
     }
 

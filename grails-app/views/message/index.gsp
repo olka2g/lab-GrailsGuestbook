@@ -12,7 +12,7 @@
                     messages we collected or leave your own comment. You can also
                     see who is the most active commentator here!
                 </p>
-                <g:link class="btn btn-primary btn-lg">
+                <g:link action="create" class="btn btn-primary btn-lg">
                     <span class="glyphicon glyphicon-pencil"></span>  Leave your message
                 </g:link>
                 <g:link controller="user" class="btn btn-primary btn-lg">
