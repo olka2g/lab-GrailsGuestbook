@@ -12,12 +12,12 @@
                     messages we collected or leave your own comment. You can also
                     see who is the most active commentator here!
                 </p>
-                <button class="btn btn-primary btn-lg">
+                <g:link class="btn btn-primary btn-lg">
                     <span class="glyphicon glyphicon-pencil"></span>  Leave your message
-                </button>
-                <button class="btn btn-primary btn-lg">
+                </g:link>
+                <g:link controller="user" class="btn btn-primary btn-lg">
                     <span class="glyphicon glyphicon-list-alt"></span>  See commentators list
-                </button>
+                </g:link>
             </div>
             <g:each in="${allMessages}" var="message">
             <div class="panel panel-info">
