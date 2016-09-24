@@ -9,3 +9,11 @@ body > .container {
 .jumbotron .btn {
     margin: 20px 10px 0 0;   
 }
+
+form {
+    margin: 30px 0;   
+}
+
+.alert-danger {
+    margin: 20px 0;   
+}

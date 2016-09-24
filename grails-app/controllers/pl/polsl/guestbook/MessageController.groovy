@@ -9,7 +9,7 @@ class MessageController {
     static allowedMethods = [save: "POST"]
 
     def index() {
-        def messages = Message.list()
+        def messages = Message.list().sort{ it.dateCreated }.reverse()
         [allMessages:messages]
     }
 

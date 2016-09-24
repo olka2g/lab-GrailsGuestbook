@@ -5,26 +5,39 @@
 		
 	</head>
 	<body>
-        <g:link controller="message" class="btn btn-primary">
-            <span class="glyphicon glyphicon-arrow-left"> </span> Back
-        </g:link>
-        <g:form action="save" class="form-group">
-            <div>
-                Your email*:
-                <g:textField name="email" class="form-control"/>
+        <row>
+            <div class="col-xs-12">
+                <g:link controller="message" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left"> </span> Back
+                </g:link>
             </div>
-            <div>
-                Your nickname:
-                <g:textField name="nick" class="form-control"/>
+        </row>
+        <row>
+            <div class="col-xs-12">
+                <g:form action="save">
+                    <div class="form-group">
+                        Your email*:
+                        <g:textField name="email" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        Your nickname:
+                        <g:textField name="nick" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        Message:
+                        <g:textArea name="content" class="form-control"/>
+                    </div>
+                    <div>
+                        <g:actionSubmit value="Save" class="btn btn-success"/>
+                    </div>
+                    <g:hasErrors>
+                        <div class="alert alert-danger">
+                            <g:renderErrors  as="list" class="alert alert-danger"/>
+                        </div>
+                    </g:hasErrors>
+                </g:form>
             </div>
-            <div>
-                <g:textArea name="content" class="form-control"/>
-            </div>
-            <div>
-                <g:actionSubmit value="Save" class="btn btn-success"/>
-            </div>
-            <g:renderErrors  as="list" />
-        </g:form>
+        </row>
         
     </body>
 </html>
