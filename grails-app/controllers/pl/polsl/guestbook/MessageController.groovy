@@ -1,22 +1,16 @@
 package pl.polsl.guestbook
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class MessageController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST"]
 
     def index() {
         def messages = Message.list()
         [allMessages:messages]
-    }
-
-    def show(Message messageInstance) {
-        respond messageInstance
     }
 
     def create() {
@@ -25,35 +19,29 @@ class MessageController {
 
     @Transactional
     def save() {        
+        def author = User.find { email == params.email && nick == params.nick}
         
-        def user = new User(email: params.email, nick: params.nick)
-        user.save()
+        if (author == null) {
+            author = new User(email: params.email, nick: params.nick)
+            if (author.validate()) {
+                author.save()
+            }
+            else {
+                respond author.errors, view: 'create'
+                return
+            }
+        }
         
-        def messageInstance = new Message(content: params.content, author: user)
+        def message = new Message(content: params.content, author: author)
         
-        if (messageInstance.hasErrors()) {
-            respond messageInstance.errors, view:'create'
+        if (message.validate()) {
+            message.save()
+            redirect(action: "index")
             return
         }
-
-        messageInstance.save()
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
-                redirect messageInstance
-            }
-            '*' { respond messageInstance, [status: CREATED] }
-        }
-    }
-
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), params.id])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
+        else {
+            respond message.errors, view: 'create'
+            return   
         }
     }
 }
