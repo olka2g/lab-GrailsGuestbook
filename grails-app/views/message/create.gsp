@@ -20,11 +20,11 @@
                         <g:textField name="email" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        Your nickname:
+                        Your nickname (optional; will hide your email):
                         <g:textField name="nick" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        Message:
+                        Message*:
                         <g:textArea name="content" class="form-control"/>
                     </div>
                     <div>

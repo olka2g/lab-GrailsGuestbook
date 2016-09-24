@@ -4,7 +4,7 @@ class BootStrap {
 
     def init = { servletContext ->
         if (User.count == 0) {
-            User u1 = new User(email: 'john.snow@got.com', nick: 'I_know_nothig(<3Ygritte)')
+            User u1 = new User(email: 'jon.snow@got.com', nick: 'I_know_nothig(<3Ygritte)')
             User u2 = new User(email: 'stranger+withoutNick@fancydomain.com')
             User u3 = new User(email: 'sweetyKitty@fancydomain.com', nick: 'John_Smith')
         
